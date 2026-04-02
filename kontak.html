@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cuticurl Bar</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* Reset & Base */
+    * { margin: 0; padding: 0;
+        box-sizing: border-box; 
+        font-family: 'Poppins', sans-serif; }
+    body {
+      background: linear-gradient(120deg,#ffd6ec,#e5d9ff);
+      color: #4a004a;
+      scroll-behavior: smooth;
+      padding-top: 80px; /* navbar fixed */
+    }
+
+    /* Navbar */
+    nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 40px;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  z-index: 1000;
+}
+
+nav h1 {
+  font-family: 'Montserrat', serif;
+  text-align: left;
+  margin: 0;
+  position: absolute;  /* Menggunakan absolute positioning */
+  left: 40px;          /* Posisikan judul di kiri */
+  top: 15px;           /* Posisikan judul di atas */
+}
+nav h1,
+.hero h2,
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 1px;
+}
+.hero h2 {
+  font-weight: 700;
+}
+
+.section-title {
+  font-weight: 600;
+}
+
+p, li {
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #6e360e;
+}
+
+nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #5c2607;
+}
+
+/* ===== SEARCH BAR ===== */
+nav .search-form {
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 25px;
+  overflow: hidden;
+  padding: 6px 12px;
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.509);
+}
+
+nav .search-form input {
+  border: none;
+  padding: 8px 15px;
+  outline: none;
+  background: transparent;
+  color: #000000;
+  width: 150px;
+  transition: width 0.3s;
+}
+
+nav .search-form input:focus {
+  width: 220px;
+}
+
+nav .search-form button {
+  border: none;
+  background: transparent;
+  color: #000000;
+  padding: 0;
+  cursor: pointer;
+}
+
+nav .search-form button svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+nav .search-form button:hover svg {
+  transform: scale(1.1);
+}
+
+    section {
+  min-height: auto; /* 🔥 sebelumnya 80vh */
+  padding: 60px 20px 10px; /* 🔥 padding bawah diperkecil */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+    .about img{
+  width: 250px;   /* ukuran gambar */
+  height: auto;
+  border-radius: 15px;
+  transition: 1s;
+}
+
+    .glass {
+      backdrop-filter: blur(15px);
+      background: rgba(255,255,255,0.3);
+      border-radius: 25px;
+      padding: 40px;
+    }
+
+    /* Contact Form Kanan */
+    .contact-wrap {
+  flex: 1;
+  min-width: 250px;
+  background: rgba(255,255,255,0.35);
+  border-radius: 20px;
+  padding: 20px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+  text-align: center;
+
+  display: flex;              
+  flex-direction: column;     
+  justify-content: center;    /* 🔥 konten di tengah */
+}
+
+about img{
+  width: 250px;   /* ukuran gambar */
+  height: auto;
+  border-radius: 15px;
+  transition: 1s;
+}
+
+    .contact-wrap h2 { margin-bottom: 25px; color: #000000; }
+    .contact-form {
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+    .contact-form input, .contact-form textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid rgba(74,0,74,0.3);
+      border-radius: 12px;
+      outline: none;
+      font-size: 14px;
+    }
+    .contact-form textarea { resize: vertical; min-height: 100px; }
+    .contact-form button {
+      padding: 12px;
+      background: #4c5d59;
+      color: #000000;
+      border: none;
+      border-radius: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+    .contact-form button:hover { background: #e6e6e6; }
+    .note { margin-top: 12px; font-size: 14px; color: #000000; opacity: 0.8; }
+
+    /* Map */
+    .map-wrap {
+      width: 100%;
+      height: 300px;
+      margin: 30px 0;
+      overflow: hidden;
+      border: none;
+    }
+
+    footer {
+  background: rgba(162, 107, 255, 0.8);
+  color: #fff;
+  padding: 40px 20px;
+  text-align: left;
+}
+
+.footer-content {
+  width: 90%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.footer-content h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.footer-content p {
+  font-size: 13px;
+}
+
+.footer-copy {
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* ===== SOSMED ===== */
+.footer-row {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sosmed {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.sosmed a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.sosmed a::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  vertical-align: middle;
+  background-size: cover;
+}
+
+.sosmed a.instagram::before {
+  background-image: url('https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png');
+}
+
+.sosmed a.twitter::before {
+  background-image: url('https://img.icons8.com/ios-filled/50/ffffff/twitter.png');
+}
+
+.sosmed a.facebook::before {
+  background-image: url('https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png');
+}
+
+.sosmed a.telegram::before {
+  background-image: url('https://img.icons8.com/ios-filled/50/ffffff/telegram-app.png');
+}
+.sosmed a.whatsapp::before {
+  background-image: url('https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png');
+}
+
+@media (max-width: 600px) {
+  section {
+    padding: 70px 20px;
+  }
+  .hero h2 {
+    font-size: 32px;
+  }
+  .footer-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+  nav {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background: #4a004a;
+      color: #fff;
+      padding: 12px 18px;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s, transform 0.5s;
+      z-index: 9999;
+    }
+    .toast.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      section { flex-direction: column; align-items: center; }
+      .text-feature, .contact-wrap { width: 90%; }
+    }
+    @media (max-width: 600px) {
+      nav .nav-right { flex-direction: column; gap: 10px; }
+      nav .search-form input { width: 100px; }
+      nav .search-form input:focus { width: 160px; }
+      .footer-row { flex-direction: column; gap: 15px; }
+    }
+
+    /* ===== RESPONSIVE CONTACT SECTION ===== */
+
+/* DESKTOP & TABLET */
+section.reveal {
+  display: flex;
+  gap: 30px;
+  align-items: stretch; /* kiri & kanan sama tinggi */
+}
+
+.about,
+.contact-wrap {
+  flex: 1;
+}
+
+/* TABLET */
+@media (max-width: 900px) {
+  section.reveal {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .about,
+  .contact-wrap {
+    width: 100%;
+    max-width: 600px;
+  }
+
+  .contact-wrap {
+    justify-content: flex-start; /* konten mulai dari atas */
+  }
+}
+
+/* MOBILE */
+@media (max-width: 600px) {
+  section.reveal {
+    gap: 20px;
+    padding-top: 40px;
+  }
+
+  .about {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+
+  .glass {
+    padding: 25px;
+  }
+
+  .contact-wrap {
+    padding: 20px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    font-size: 13px;
+  }
+
+  .contact-form button {
+    font-size: 14px;
+    padding: 10px;
+  }
+}
+/* ================= NEON PREMIUM OVERRIDE ================= */
+:root {
+  --neon-pink: #693212;
+  --neon-purple: #4e4108;
+  --neon-blue: #c06d2a;
+}
+
+/* BODY LEBIH LUXURY */
+body {
+  background: radial-gradient(circle at top, #e4d8c8, #e3d6c6);
+  color: #322407;
+}
+
+/* NAVBAR NEON */
+nav {
+  border-bottom: 1px solid rgba(58, 14, 14, 0.6);
+  box-shadow:
+    0 0 15px rgba(14, 10, 20, 0.6),
+    0 0 35px rgba(0, 0, 0, 0.4);
+}
+
+nav a {
+  color: #5c240b;
+  text-shadow: 0 0 6px var(--neon-purple);
+}
+
+nav a:hover {
+  color: #58210f;
+  text-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 25px var(--neon-purple);
+}
+
+/* SEARCH BAR NEON */
+nav .search-form {
+  border: 1px solid rgba(57, 36, 4, 0.6);
+  box-shadow: 0 0 12px rgba(70, 45, 5, 0.5);
+}
+
+/* HERO NEON */
+.hero::before {
+  background: linear-gradient(
+    rgba(160, 160, 160, 0.35),
+    rgba(0, 0, 0, 0.35)
+  );
+}
+
+.hero h2 {
+  text-shadow:
+    0 0 12px var(--neon-pink),
+    0 0 30px var(--neon-purple);
+}
+
+.hero p {
+  text-shadow: 0 0 8px var(--neon-blue);
+}
+
+/* BUTTON HERO NEON */
+.hero a {
+  background: transparent;
+  border: 2px solid var(--neon-pink);
+  color: #1b1101;
+  box-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 25px var(--neon-purple);
+}
+
+.hero a:hover {
+  background: var(--neon-pink);
+  color: #120015;
+  box-shadow:
+    0 0 20px var(--neon-pink),
+    0 0 45px var(--neon-purple);
+}
+
+/* GLASS CARD NEON EDGE */
+.glass {
+  border: 1px solid rgba(198, 116, 35, 0.7);
+  box-shadow:
+    0 0 25px rgba(200, 102, 16, 0.5),
+    inset 0 0 20px rgba(210, 121, 32, 0.2);
+}
+
+/* SECTION TITLE */
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 25px; /* sebelumnya 60px */
+}
+
+
+/* GALERI HOVER NEON */
+.gallery img:hover,
+.gallery video:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-purple),
+    0 0 60px var(--neon-blue);
+  transition: 0.4s;
+}
+
+/* JAM BUKA NEON */
+.jam {
+  box-shadow:
+    0 0 20px rgba(165, 101, 28, 0.6),
+    inset 0 0 20px rgba(218, 141, 52, 0.2);
+}
+
+/* FOOTER NEON */
+footer {
+  background: linear-gradient(135deg, #345049, #3a4e4b);
+  box-shadow: inset 0 0 40px rgba(59, 95, 84, 0.6);
+}
+
+/* SOSMED NEON */
+.sosmed a:hover {
+  opacity: 1;
+  text-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-purple);
+}
+
+/* WHATSAPP NEON PREMIUM */
+.wa-button {
+  box-shadow:
+    0 0 15px #25D366,
+    0 0 40px var(--neon-purple);
+}
+
+.wa-popup {
+  border: 1px solid rgba(142, 107, 19, 0.6);
+  box-shadow:
+    0 0 25px rgba(160, 102, 13, 0.6),
+    inset 0 0 15px rgba(165, 97, 18, 0.2);
+}
+/* NAV ACTIVE NEON SIMPLE */
+nav a.active {
+  color: #fff;
+  text-shadow: 0 0 10px #ad7315, 0 0 20px #b56917;
+  border-bottom: 2px solid #cf8414;
+  padding-bottom: 4px;
+}
+
+.contact-title{
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+.contact-box h3{
+  margin-bottom: 12px; /* jarak bawah judul */
+  color: #6b946b;
+  font-size: 18px;
+}
+
+.contact-box i{
+  margin-right: 8px;
+  color: #000000;
+}
+
+.contact-box p{
+  margin: 6px 0; /* jarak antar teks */
+}
+
+.highlight{
+  display: block;
+  margin-top: 8px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.limited{
+  font-size: 12px;
+  color: #999;
+}
+/* RESPONSIVE SEDERHANA */
+@media (max-width: 768px){
+
+  nav{
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  nav h1{
+    position: static;
+  }
+
+  .about{
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .about img{
+    margin: auto;
+  }
+
+  .footer-row{
+    flex-direction: column;
+  }
+
+}
+  </style>
+</head>
+
+<body>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<!-- Navbar -->
+<nav>
+  <h1>Cuticurl Bar</h1>
+  <div class="nav-right">
+  <a href="home.html">Home</a>
+  <a href="pelayanan.html">Layanan</a>
+  <a href="kontak.html" class="active">Contact</a>
+
+    <!--search navbar-->
+    <form class="search-form" id="searchForm">
+    <input type="text" id="searchInput" placeholder="Cari...">
+    <button type="submit">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="#4a004a" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="16" y1="16" x2="22" y2="22"></line>
+        </svg>
+      </button>
+    </form>
+  </div>
+</nav>
+
+<!-- Contact Section -->
+<section class="reveal">
+  <div class="about glass">
+
+    <div class="contact-title">
+      <h2>Contact & Reservation</h2>
+      <p>Nikmati perawatan terbaik dengan harga spesial! ✨</p>
+    </div>
+
+    <div class="contact-content">
+
+      <div class="contact-box">
+        <h3><i class="fa-solid fa-gift"></i> Friday Grand Opening</h3>
+        <p>Hair Cut + Hair Polish</p>
+        <span class="highlight">Only 100K (Save 20K!)</span>
+      </div>
+
+      <div class="contact-box">
+        <h3><i class="fa-solid fa-calendar-days"></i> Special Event Promo</h3>
+        <p>New Year & 8 July Anniversary</p>
+        <span class="highlight">Get 10% OFF for All Services</span>
+      </div>
+
+      <div class="contact-box">
+        <h3><i class="fa-solid fa-tags"></i> Normal Price</h3>
+        <p>Hair Cut 50K • Hair Style 30K</p>
+        <p>Hair Polish 70K • Nail Polish 40K</p>
+      </div>
+
+      <div class="contact-box">
+        <h3><i class="fa-solid fa-crown"></i> Member Privilege</h3>
+        <p>Extra 10% OFF Every Visit</p>
+      </div>
+
+      <div class="contact-box">
+        <h3><i class="fa-solid fa-phone"></i> Contact</h3>
+        <p><i class="fa-regular fa-clock"></i> Open Daily : 09.00 – 20.00</p>
+        <p><i class="fa-brands fa-whatsapp"></i> 0812-3456-7890</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Contact Form Kanan -->
+  <div class="contact-wrap">
+    <h2>Hubungi Kami</h2>
+    <form class="contact-form" id="contactForm">
+      <input type="text" name="from_name" id="name" placeholder="Nama" required>
+      <input type="email" name="from_email" id="email" placeholder="Email" required>
+      <textarea name="message" id="message" placeholder="Pesan" required></textarea>
+      <button type="submit">Kirim via Email</button>
+    </form>
+    <p class="note">Pesan akan dikirim ke email admin </p>
+  </div>
+</section>
+
+<!-- Map -->
+<div class="map-wrap">
+  <iframe
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3965.0000000000005!2d109.00000000000001!3d-6.866666666666667!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTInMDAuMCJTIDEwOcKwMDAnMDAuMCJF!5e0!3m2!1sid!2sid!4v0000000000000"
+    width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-row">
+      <div class="footer-col">
+        <h3>Alamat</h3>
+        <p>Jl. Tambakboyo Kidul, Desa Ngadirejo, Kec.Reban</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Informasi</h3>
+        <p>Tentang Kami</p>
+        <p>Layanan Kami</p>
+        <p>Harga</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Bantuan</h3>
+        <p>Hubungi Kami</p>
+        <p>Pengetahuan</p>
+        <p>Testimoni</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Sosial Media</h3>
+        <div class="sosmed">
+          <a class="instagram" href="https://instagram.com" target="_blank">Instagram</a>
+          <a class="twitter" href="https://twitter.com" target="_blank">Twitter</a>
+          <a class="facebook" href="https://facebook.com" target="_blank">Facebook</a>
+          <a class="telegram" href="https://t.me" target="_blank">Telegram</a>
+          <a class="whatsapp" href="https://wa.me/082326924489" target="_blank">WhatsApp</a>
+        </div>
+      </div>
+    </div>
+
+    <h3>Email</h3>
+    <p>arina.manasikana1940@smk.belajar.id</p>
+
+    <h3>Website</h3>
+    <p>www.CutiCulrBar.com</p>
+
+    <p class="footer-copy">© 2026 CutiCurl Bar</p>
+  </div>
+</footer>
+
+<!-- Toast Notification -->
+<div class="toast" id="toast"></div>
+
+<!-- EmailJS -->
+<script src="https://cdn.jsdelivr.net/npm/emailjs-com@2/dist/email.min.js"></script>
+<script>
+  emailjs.init("AEiiUSKDVdbA10fW8");
+
+  function showToast(message) {
+    const toast = document.getElementById("toast");
+    toast.textContent = message;
+    toast.classList.add("show");
+    setTimeout(() => toast.classList.remove("show"), 3000);
+  }
+
+  document.getElementById("contactForm").addEventListener("submit", function(e) {
+    e.preventDefault();
+    emailjs.sendForm("service_k11rmkn", "template_dcvmnhe", this)
+      .then(() => { showToast("✅ Pesan berhasil dikirim!"); this.reset(); })
+      .catch(() => showToast("❌ Gagal mengirim pesan"));
+  });
+
+  //search aktif//
+  const searchForm = document.getElementById("searchForm");
+  const searchInput = document.getElementById("searchInput");
+
+  searchForm.addEventListener("submit", function (e) {
+    e.preventDefault();
+
+    const keyword = searchInput.value.trim().toLowerCase();
+    if (!keyword) return;
+
+    const targets = document.querySelectorAll(
+      "section, footer, .hero, .about, .gallery"
+    );
+
+    let found = false;
+
+    targets.forEach(el => {
+      if (!found && el.innerText.toLowerCase().includes(keyword)) {
+        el.scrollIntoView({ behavior: "smooth", block: "center" });
+
+        el.style.boxShadow = "0 0 0 4px rgba(162,107,255,0.8)";
+        setTimeout(() => {
+          el.style.boxShadow = "none";
+        }, 2000);
+
+        found = true;
+      }
+    });
+
+    if (!found) {
+      alert("❌ Kata tidak ditemukan");
+    }
+  });
+  
+</script>
+
+</body>
+</html>

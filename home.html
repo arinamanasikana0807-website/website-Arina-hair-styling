@@ -1,0 +1,906 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuticurl Bar</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: linear-gradient(120deg, #4d3606, #614605);
+  color: #634810;
+  scroll-behavior: smooth;
+}
+
+/* ===== NAVBAR ===== */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 40px;
+  backdrop-filter: blur(12px);
+  background: rgba(74, 41, 14, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  z-index: 1000;
+}
+
+nav h1 {
+  font-family: 'Montserrat', serif;
+  text-align: left;
+  margin: 0;
+  position: absolute;  /* Menggunakan absolute positioning */
+  left: 40px;          /* Posisikan judul di kiri */
+  top: 15px;           /* Posisikan judul di atas */
+}
+nav h1,
+.hero h2,
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 1px;
+}
+.hero h2 {
+  font-weight: 700;
+}
+
+.section-title {
+  font-weight: 600;
+}
+
+p, li {
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #5a2d14;
+}
+
+/* ===== SEARCH BAR ===== */
+nav .search-form {
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 25px;
+  overflow: hidden;
+  padding: 6px 12px;
+}
+
+nav .search-form input {
+  border: none;
+  padding: 8px 15px;
+  outline: none;
+  background: transparent;
+  color: #000000;
+  width: 150px;
+  transition: width 0.3s;
+}
+
+nav .search-form input:focus {
+  width: 220px;
+}
+
+nav .search-form button {
+  border: none;
+  background: transparent;
+  color: #000000;
+  padding: 0;
+  cursor: pointer;
+}
+
+nav .search-form button svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+nav .search-form button:hover svg {
+  transform: scale(1.1);
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: hidden;
+}
+
+.hero img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -2;
+}
+
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    rgba(184, 117, 41, 0.25),
+    rgba(96, 60, 10, 0.25)
+  );
+  z-index: -1;
+}
+
+.glass {
+  backdrop-filter: blur(15px);
+  background: rgba(255, 255, 255, 0.25);
+  border-radius: 20px;
+  padding: 25px; /* dari 40px jadi lebih kecil */
+}
+
+
+.hero h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 42px;
+  color: #ffffff;
+}
+
+.hero p {
+  color: #eeeeee;
+  margin: 15px 0 25px;
+}
+
+.hero a {
+  padding: 12px 30px;
+  background: #632d0c;
+  border-radius: 30px;
+  text-decoration: none;
+  color: #7f7d83;
+  font-weight: 600;
+}
+
+/* ===== SECTION ===== */
+section {
+  padding: 60px 60px;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 60px;
+}
+
+.section-desc {
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+/* ===== ABOUT ===== */
+.about {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 50px; /* ini jarak gambar ↔ teks */
+  align-items: center;
+}
+
+.about img {
+  width: 290px;
+  height: 290px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+
+/* ===== GALERI ===== */
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); /* lebih kecil dari 220px */
+  gap: 15px;
+  justify-items: center;
+}
+
+#galeri p {
+  text-align: center;
+  width: 100%;
+  margin-bottom: 25px;
+}
+
+.gallery video {
+  width: 100%;
+  max-width: 180px;
+  aspect-ratio: 9 / 16;
+  object-fit: cover;
+  border-radius: 16px;
+}
+
+
+/* ===== JAM BUKA (RUNNING TEXT) ===== */
+.jam {
+  overflow: hidden;
+  white-space: nowrap;
+  font-weight: 600;
+  width: 100%;
+}
+
+.running-text {
+  display: inline-block;
+  white-space: nowrap;
+  animation: jalan 15s linear infinite;
+}
+
+/* animasi dari kanan layar sampai keluar kiri */
+@keyframes jalan {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+/* ===== WHATSAPP ===== */
+.wa-widget {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
+}
+
+.wa-button {
+  background: #25D366;
+  border: none;
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.wa-button img {
+  width: 36px;
+}
+
+.wa-popup {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 260px;
+  background: #e0dfdf;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 10px 25px rgba(245, 242, 242, 0.945);
+  font-size: 14px;
+  display: none;
+}
+
+.wa-popup p {
+  margin-bottom: 12px;
+  color: #333333;
+}
+
+.wa-chat {
+  display: block;
+  text-align: center;
+  background: #25D366;
+  color: #b2b2b2;
+  padding: 10px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+}
+/* WhatsApp kelihatan aktif */
+.wa-button {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(211, 112, 37, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(222, 137, 40, 0);
+  }
+}
+
+/* ===== REVEAL ===== */
+.reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition: 1s;
+}
+
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ===== FOOTER ===== */
+footer {
+  background: rgba(255, 255, 255, 0.8);
+  color: #ffffff;
+  padding: 40px 20px;
+  text-align: left;
+}
+
+.footer-content {
+  width: 90%;
+  max-width: 900px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.footer-content h3 {
+  font-size: 18px;
+  margin: 0;
+}
+
+.footer-content p {
+  font-size: 13px;
+}
+
+.footer-copy {
+  margin-top: 10px;
+  font-size: 12px;
+  opacity: 0.9;
+}
+
+/* ===== SOSMED ===== */
+.footer-row {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sosmed {
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.sosmed a {
+  color: #fff;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.sosmed a::before {
+  content: "";
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  margin-right: 8px;
+  vertical-align: middle;
+  background-size: cover;
+}
+
+.sosmed a.instagram::before {
+  background-image: url('https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png');
+}
+
+.sosmed a.twitter::before {
+  background-image: url('https://img.icons8.com/ios-filled/50/ffffff/twitter.png');
+}
+
+.sosmed a.facebook::before {
+  background-image: url('https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png');
+}
+
+.sosmed a.telegram::before {
+  background-image: url('https://img.icons8.com/ios-filled/50/ffffff/telegram-app.png');
+}
+
+@media (max-width: 600px) {
+  section {
+    padding: 70px 20px;
+  }
+  .hero h2 {
+    font-size: 32px;
+  }
+  .footer-row {
+    flex-direction: column;
+    gap: 20px;
+  }
+  nav {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+/* ================= NEON PREMIUM OVERRIDE ================= */
+:root {
+  --neon-pink: #693212;
+  --neon-purple: #4e4108;
+  --neon-blue: #c06d2a;
+}
+
+/* BODY LEBIH LUXURY */
+body {
+  background: radial-gradient(circle at top, #e4d8c8, #e3d6c6);
+  color: #322407;
+}
+
+/* NAVBAR NEON */
+nav {
+  border-bottom: 1px solid rgba(58, 14, 14, 0.6);
+  box-shadow:
+    0 0 15px rgba(14, 10, 20, 0.6),
+    0 0 35px rgba(0, 0, 0, 0.4);
+}
+
+nav a {
+  color: #7e2f0c;
+  text-shadow: 0 0 6px var(--neon-purple);
+}
+
+nav a:hover {
+  color: #5f2f1a;
+  text-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 25px var(--neon-purple);
+}
+
+/* SEARCH BAR NEON */
+nav .search-form {
+  border: 1px solid rgba(255, 255, 254, 0.411);
+  box-shadow: 0 0 12px rgba(255, 255, 255, 0.509);
+}
+
+/* HERO NEON */
+.hero::before {
+  background: linear-gradient(
+    rgba(233, 194, 135, 0.632),
+    rgba(0, 0, 0, 0.105)
+  );
+}
+
+.hero h2 {
+  text-shadow:
+    0 0 12px var(--neon-pink),
+    0 0 30px var(--neon-purple);
+}
+
+.hero p {
+  text-shadow: 0 0 8px var(--neon-blue);
+}
+
+/* BUTTON HERO NEON */
+.hero a {
+  background: transparent;
+  border: 2px solid var(--neon-pink);
+  color: #1b1101;
+  box-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 25px var(--neon-purple);
+}
+
+.hero a:hover {
+  background: var(--neon-pink);
+  color: #120015;
+  box-shadow:
+    0 0 20px var(--neon-pink),
+    0 0 45px var(--neon-purple);
+}
+
+/* GLASS CARD NEON EDGE */
+.glass {
+  border: 1px solid rgba(198, 116, 35, 0.7);
+  box-shadow:
+    0 0 25px rgba(200, 102, 16, 0.5),
+    inset 0 0 20px rgba(210, 121, 32, 0.2);
+}
+
+/* SECTION TITLE */
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 25px; /* sebelumnya 60px */
+}
+
+
+/* GALERI HOVER NEON */
+.gallery img:hover,
+.gallery video:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-purple),
+    0 0 60px var(--neon-blue);
+  transition: 0.4s;
+}
+
+/* JAM BUKA NEON */
+.jam {
+  box-shadow:
+    0 0 20px rgba(165, 101, 28, 0.6),
+    inset 0 0 20px rgba(218, 141, 52, 0.2);
+}
+
+/* FOOTER NEON */
+footer {
+  background: linear-gradient(135deg, #345049, #3a4e4b);
+  box-shadow: inset 0 0 40px rgba(59, 95, 84, 0.6);
+}
+
+/* SOSMED NEON */
+.sosmed a:hover {
+  opacity: 1;
+  text-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-purple);
+}
+
+/* WHATSAPP NEON PREMIUM */
+.wa-button {
+  box-shadow:
+    0 0 15px #25D366,
+    0 0 40px var(--neon-purple);
+}
+
+.wa-popup {
+  border: 1px solid rgba(249, 249, 249, 0.6);
+  box-shadow:
+    0 0 25px rgba(227, 226, 230, 0.6),
+    inset 0 0 15px rgba(233, 228, 228, 0.2);
+}
+/* NAV ACTIVE NEON SIMPLE */
+nav a.active {
+  color: #fff;
+  text-shadow: 0 0 10px #ad7315, 0 0 20px #b56917;
+  border-bottom: 2px solid #cf8414;
+  padding-bottom: 4px;
+}
+
+/* ===== RESPONSIVE FIX LENGKAP ===== */
+
+/* Tablet */
+@media (max-width: 768px){
+
+ nav{
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+nav h1{
+  position: static;
+}
+
+.nav-right{
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+  .search-form input{
+    width: 120px;
+  }
+
+  .hero h2{
+    font-size: 28px;
+  }
+
+  section{
+    padding: 50px 20px;
+  }
+
+  .about{
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+
+  .about img{
+    width: 100%;
+    height: auto;
+    max-width: 250px;
+    margin: auto;
+  }
+
+  .gallery{
+    grid-template-columns: repeat(2,1fr);
+  }
+
+  .footer-row{
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+/* HP kecil */
+@media (max-width: 480px){
+
+  .hero h2{
+    font-size: 22px;
+  }
+
+  .hero p{
+    font-size: 14px;
+  }
+
+  .hero a{
+    padding: 10px 20px;
+    font-size: 14px;
+  }
+
+  .search-form{
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search-form input{
+    width: 100px;
+  }
+
+  .gallery{
+    grid-template-columns: 1fr;
+  }
+
+  .wa-button{
+    width: 55px;
+    height: 55px;
+  }
+
+  .wa-button img{
+    width: 28px;
+  }
+}
+
+</style>
+</head>
+
+<body>
+  
+<!--Navbar-->
+<nav>
+  <h1>CutiCurl Bar</h1>
+  <div class="nav-right">
+    <a href="home.html" class="active">Home</a>
+    <a href="pelayanan.html">Layanan</a>
+    <a href="kontak.html">Contact</a>
+    
+    <!--search navbar-->
+  <form class="search-form" id="searchForm">
+  <input type="text" id="searchInput" placeholder="Cari...">
+  <button type="submit">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+      fill="none" stroke="#4a004a" stroke-width="2"
+      viewBox="0 0 24 24" stroke-linecap="round"
+      stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="16" y1="16" x2="22" y2="22"></line>
+    </svg>
+  </button>
+  </form>
+  </div>
+</nav>
+
+<div class="hero">
+  <img src="asettt/bg2.jpg" alt="Hero Image">
+  <div class="glass reveal">
+    <h2>Tampil Cantik & Percaya Diri</h2>
+    <p>Investasikan pada rambutmu, itu mahkota yang tidak pernah kamu lepas</p>
+    <a href="#galeri">Next</a>
+  </div>
+</div>
+
+<section class="reveal">
+  <h2 class="section-title">About Us</h2>
+  <p class="section-desc">Tampilan Profesional, Pesona Maksimal</p>
+  <div class="about glass">
+    <img src="asettt/sekian.png" alt="About Us">
+    <p>
+      Cuticurl Bar adalah destinasi kecantikan yang didirikan pada 2026
+      dengan semangat membantu pelanggan tampil lebih rapi, menarik,
+      dan percaya diri.
+      Cuticurl Bar adalah Usaha jasa di bidang perawatan dan penataan rambut
+      yang hadir untuk memberikan pengalaman hair cut yang lebih dari sekadar potong rambut. Dengan sentuhan profesional, pelayanan yang ramah, serta suasana yang nyaman dan modern,
+      kami berkomitmen membantu setiap pelanggan tampil lebih percaya diri.
+      Kami menyediakan berbagai layanan mulai dari hair cut, styling, hingga perawatan rambut yang disesuaikan dengan kebutuhan dan karakter 
+      setiap individu. Kebersihan alat, kualitas produk, 
+      dan kepuasan pelanggan selalu menjadi prioritas utama kami.Didukung oleh hair stylist yang berpengalaman dan mengikuti tren terbaru,
+      Cuticurl Bar siap menghadirkan hasil terbaik dengan harga yang terjangkau untuk semua kalangan.
+    </p>
+    <p>
+      Cuticurl Bar – Where Your Hair Gets the Perfect Style.
+    </p>
+  </div>
+</section>
+
+<section class="reveal">
+  <div class="about glass">
+    <img src="asettt/bg3.jpg" alt="About Us">
+    <div>
+      <h2>Informasi</h2>
+      <p>Rahasia utama gaya rambut yang sesuai bentuk wajah adalah menciptakan ilusi proporsi yang seimbang, seperti memanjangkan wajah bulat atau melembutkan rahang tegas. Kuncinya adalah menyesuaikan volume dan panjang rambut (layer, poni, belahan) untuk menutupi kekurangan dan menonjolkan fitur terbaik wajah, memastikan penampilan yang lebih serasi. .</p>
+      <h2>Gaya rambut berdasarkan bentuk</h2>
+      <ol>
+        <li>Wajah bulat(Round): Pilih gaya yang memberi kesan tirus dan memanjang, seperti long bob (lob) yang melebihi bahu, short pixie dengan poni samping, atau layer panjang, dan hindari belah tengah.</li>
+        <li>Wajah oval: Bentuk wajah ini paling ideal dan fleksibel, cocok dengan hampir semua gaya rambut, baik pendek, medium, maupun panjang, termasuk blunt bob.</li>
+        <li>Wajah kotak(Square): Melembutkan rahang tegas dengan gaya rambut panjang bergelombang, soft layers, atau poni samping, dan hindari potongan geometris lurus.</li>
+        <li>Wajah hati(Heart): Fokus pada penyeimbangan dahi lebar dan dagu runcing dengan bob panjang (sebahu) atau gaya berlayer yang memberikan volume di area rahang.</li>
+        <li>Wajah panjang/lonjong(Oblong): Gunakan poni (curtain bangs) untuk memperpendek kesan wajah dan hindari rambut lurus panjang tanpa layer.</li>
+        <li>Wajah diamond:Pilih gaya layered long bob atau pixie cut untuk menonjolkan tulang pipi. </li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<section id="galeri" class="reveal">
+  <h2 class="section-title">Testimoni</h2>
+  <p>Ciptakan sesuatu yang menakjubkan bersama kami</p>
+  <div class="gallery">
+    <video autoplay muted loop playsinline>
+      <source src="asettt/b.mp4" type="video/mp4">
+      Browser kamu tidak mendukung video.
+    </video>
+    <video autoplay muted loop playsinline>
+      <source src="asettt/c.mp4" type="video/mp4">
+      Browser kamu tidak mendukung video.
+    </video>
+    <video autoplay muted loop playsinline>
+      <source src="asettt/d.mp4" type="video/mp4">
+      Browser kamu tidak mendukung video.
+    </video>
+    <video autoplay muted loop playsinline>
+      <source src="asettt/e.mp4" type="video/mp4">
+      Browser kamu tidak mendukung video.
+    </video>
+</section>
+
+<section class="reveal">
+  <div class="jam glass">
+    <div class="running-text">
+      Jam Buka 🕒 Senin – Minggu | 09.00 – 21.00 WIB | CutiCurl Bar | tampil cantik dengan gaya rambut elegan.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-row">
+      <div class="footer-col">
+        <h3>Alamat</h3>
+        <p>Jl. Tambakboyo Kidul, Desa Ngadirejo, Kec.Reban</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Informasi</h3>
+        <p>Tentang Kami</p>
+        <p>Layanan Kami</p>
+        <p>Harga</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Bantuan</h3>
+        <p>Hubungi Kami</p>
+        <p>Pengetahuan</p>
+        <p>Testimoni</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Sosial Media</h3>
+        <div class="sosmed">
+          <a class="instagram" href="https://instagram.com" target="_blank">Instagram</a>
+          <a class="twitter" href="https://twitter.com" target="_blank">Twitter</a>
+          <a class="facebook" href="https://facebook.com" target="_blank">Facebook</a>
+          <a class="telegram" href="https://t.me" target="_blank">Telegram</a>
+        </div>
+      </div>
+    </div>
+
+    <h3>Email</h3>
+    <p>arina.manasikana1940@smk.belajar.id</p>
+
+    <h3>Website</h3>
+    <p>www.CutiCurlBar.com</p>
+
+    <p class="footer-copy">© 2026 CutiCurl Bar</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP WIDGET -->
+<div class="wa-widget">
+  <div class="wa-popup" id="waPopup">
+    <p><strong>Halo </strong><br>
+    Perkenalkan CutiCurl Bar<br>
+    Ada yang bisa kami bantu?</p>
+    <a href="https://wa.me/082326924489?text=Halo%20Glow%20Beauty,%20saya%20ingin%20konsultasi"
+       target="_blank"
+       class="wa-chat">
+       Chat via WhatsApp
+    </a>
+  </div>
+
+  <button class="wa-button" id="waButton">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png">
+  </button>
+</div>
+
+
+<script>
+  //efek
+const reveals = document.querySelectorAll('.reveal');
+window.addEventListener('scroll', () => {
+  reveals.forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 100) {
+      el.classList.add('active');
+    }
+  });
+});
+
+// search aktif//
+const searchForm = document.getElementById("searchForm");
+const searchInput = document.getElementById("searchInput");
+
+searchForm.addEventListener("submit", function (e) {
+  e.preventDefault();
+
+  const keyword = searchInput.value.trim().toLowerCase();
+  if (!keyword) return;
+
+  const targets = document.querySelectorAll(
+    "section, footer, .hero, .about, .gallery"
+  );
+
+  let found = false;
+
+  targets.forEach(el => {
+    if (!found && el.innerText.toLowerCase().includes(keyword)) {
+      el.scrollIntoView({ behavior: "smooth", block: "center" });
+
+      el.style.boxShadow = "0 0 0 4px rgba(162,107,255,0.8)";
+      setTimeout(() => {
+        el.style.boxShadow = "none";
+      }, 2000);
+
+      found = true;
+    }
+  });
+
+  if (!found) {
+    alert("❌ Kata tidak ditemukan");
+  }
+});
+
+  //whatsap//
+const waBtn = document.getElementById("waButton");
+const waPopup = document.getElementById("waPopup");
+
+waBtn.addEventListener("click", () => {
+  waPopup.style.display =
+    waPopup.style.display === "block" ? "none" : "block";
+});
+</script>
+
+</body>
+</html>

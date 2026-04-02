@@ -1,0 +1,1266 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cuticurl Bar</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  background:linear-gradient(120deg,#f1f1f1,#d5d5d5);
+  color:#000000;
+  scroll-behavior:smooth;
+}
+
+/* NAVBAR */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 15px 40px;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 60px;
+  z-index: 1000;
+}
+nav h1 {
+  font-family: 'Montserrat', serif;
+  text-align: left;
+  margin: 0;
+  position: absolute;  /* Menggunakan absolute positioning */
+  left: 40px;          /* Posisikan judul di kiri */
+  top: 15px;           /* Posisikan judul di atas */
+}
+nav h1,
+.hero h2,
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 1px;
+}
+.hero h2 {
+  font-weight: 700;
+}
+
+.section-title {
+  font-weight: 600;
+}
+
+p, li {
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #ebdfeb;
+}
+
+nav .nav-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+nav a {
+  text-decoration: none;
+  font-weight: 600;
+  color: #5e3f06;
+}
+
+/* ===== SEARCH BAR ===== */
+nav .search-form {
+  display: flex;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 25px;
+  overflow: hidden;
+  padding: 6px 12px;
+  box-shadow: 0 0 12px rgba(11, 6, 6, 0.509);
+}
+
+nav .search-form input {
+  border: none;
+  padding: 8px 15px;
+  outline: none;
+  background: transparent;
+  color: #000000;
+  width: 150px;
+  transition: width 0.3s;
+}
+
+nav .search-form input:focus {
+  width: 220px;
+}
+
+nav .search-form button {
+  border: none;
+  background: transparent;
+  color: #000000;
+  padding: 0;
+  cursor: pointer;
+}
+
+nav .search-form button svg {
+  width: 20px;
+  height: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+nav .search-form button:hover svg {
+  transform: scale(1.1);
+}
+
+/* SECTION */
+section{
+  min-height:100vh;
+  padding:140px 60px 80px;
+}
+
+.title{
+  text-align:center;
+  font-family:'Playfair Display',serif;
+  font-size:34px;
+  margin-bottom:30px;
+}
+
+/* FILTER */
+.filter{
+  text-align:center;
+  margin-bottom:35px;
+}
+
+.filter button{
+  margin:6px;
+  padding:10px 24px;
+  border:none;
+  border-radius:30px;
+  background:rgba(72, 135, 109, 0.35);
+  backdrop-filter:blur(12px);
+  color:#000000;
+  font-weight:600;
+  cursor:pointer;
+  transition:0.3s;
+}
+
+.filter button.active{
+  background:rgb(255, 255, 255);
+  box-shadow:0 12px 25px rgba(94, 74, 10, 0.4);
+}
+
+/* GRID */
+.services{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:25px;
+}
+
+/* CARD */
+.card{
+  position:relative; /* buat overlay nama */
+  backdrop-filter:blur(15px);
+  background:rgba(255, 255, 255, 0.35);
+  border-radius:20px;
+  overflow:hidden;
+  box-shadow:0 15px 30px rgba(162,107,255,0.25);
+  transition:opacity 0.4s ease, transform 0.3s ease;
+}
+
+/* fade saat filter */
+.card.fade-out{
+  opacity:0;
+  transform:scale(0.9);
+}
+
+/* efek hover */
+.card:hover{
+  transform:translateY(-8px) scale(1.05);
+}
+
+.card img{
+  width:100%;
+  height:80%;           
+  background:#fff;        /* biar kalau ada sisa ruang tetap rapi */
+  padding:10px;           /* jarak biar tidak mepet */
+  border-bottom:1px solid rgba(0,0,0,0.05);
+}
+
+/* NAMA LAYANAN DI POJOK KANAN ATAS */
+.card .service-name{
+  position:absolute;
+  top:10px;
+  right:10px;
+  background:rgba(0,0,0,0.55);
+  color:#fff;
+  padding:6px 10px;
+  border-radius:12px;
+  font-weight:700;
+  font-size:14px;
+}
+
+/* HILANGKAN H3 DAN BUAT HANYA PRICE + BOOKING */
+.card p{
+  padding:4px;
+  font-weight:600;
+  text-align:center;
+}
+
+/* ===== BOOKING BUTTON */
+.book-btn{
+  width:100%;
+  padding:12px 0;
+  border:none;
+  background:#466557;
+  color:#fff;
+  font-weight:700;
+  cursor:pointer;
+}
+
+
+/* ===== FOOTER ===== */
+footer{
+  background:rgba(45, 64, 63, 0.8);
+  color:#fff;
+  padding:40px 20px;
+  text-align:left;
+}
+
+.footer-content{
+  width: 90%;
+  max-width: 900px;
+  display:flex;
+  flex-direction:column;
+  align-items: flex-start;
+  gap:0;
+}
+
+.footer-content h3{
+  font-size:18px;
+  margin:0;
+}
+
+.footer-content p{
+  font-size: 14px;
+}
+
+.footer-copy{
+  margin-top:8px;
+  font-size:14px;
+  opacity:0.5;
+}
+
+/* ===== SOSMED (DI SEBELAH ALAMAT) ===== */
+.footer-row{
+  display:flex;
+  gap:60px;
+  align-items:flex-start;
+  margin-bottom: 10px;
+}
+
+.footer-col{
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+}
+
+.sosmed{
+ display:flex;
+ flex-direction:row; /* JADI HORIZONTAL */
+ gap:12px;
+ margin-top:8px;
+}
+
+.sosmed a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:600;
+  font-size:14px;
+  opacity:0.9;
+}
+
+/* ICON SOSMED */
+.sosmed a::before{
+  content:"";
+  display:inline-block;
+  width:18px;
+  height:18px;
+  margin-right:8px;
+  vertical-align:middle;
+  background-size:cover;
+}
+
+.sosmed a.instagram::before{ background-image:url('https://img.icons8.com/ios-filled/50/ffffff/instagram-new.png'); }
+.sosmed a.twitter::before{ background-image:url('https://img.icons8.com/ios-filled/50/ffffff/twitter.png'); }
+.sosmed a.facebook::before{ background-image:url('https://img.icons8.com/ios-filled/50/ffffff/facebook-new.png'); }
+.sosmed a.telegram::before{ background-image:url('https://img.icons8.com/ios-filled/50/ffffff/telegram-app.png'); }
+
+
+
+@media(max-width:600px){
+  section{padding:120px 20px 60px;}
+
+  nav .search-form input{
+    width:100px;
+  }
+  .footer-row{
+    flex-direction:column;
+    gap:20px;
+  }
+}
+/* ===== WHATSAPP ===== */
+.wa-widget {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  z-index: 9999;
+}
+
+.wa-button {
+  background: #25D366;
+  border: none;
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  cursor: pointer;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+}
+
+.wa-button img {
+  width: 36px;
+}
+
+.wa-popup {
+  position: absolute;
+  bottom: 80px;
+  right: 0;
+  width: 260px;
+  background: #fff;
+  border-radius: 15px;
+  padding: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  font-size: 14px;
+  display: none;
+}
+
+.wa-popup p {
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.wa-chat {
+  display: block;
+  text-align: center;
+  background: #25D366;
+  color: #fff;
+  padding: 10px;
+  border-radius: 25px;
+  text-decoration: none;
+  font-weight: 600;
+}
+/* WhatsApp kelihatan aktif */
+.wa-button {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.6);
+  }
+  70% {
+    box-shadow: 0 0 0 15px rgba(37, 211, 102, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+  }
+}
+/* ===== MODAL KERANJANG ===== */
+.cart-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.45);
+  z-index: 3000;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-box {
+  background: #fff;
+  width: 90%;
+  max-width: 420px;
+  border-radius: 20px;
+  padding: 20px;
+  color: #405e57;
+  box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+}
+
+.cart-title {
+  margin-bottom: 15px;
+}
+
+.cart-items div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.cart-items button {
+  border: none;
+  background: none;
+  color: rgb(173, 82, 16);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.cart-close {
+  width: 100%;
+  margin-top: 15px;
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+  background: #496d48;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
+/* ================= NEON PREMIUM OVERRIDE ================= */
+:root {
+  --neon-pink: #693212;
+  --neon-purple: #4e4108;
+  --neon-blue: #c06d2a;
+}
+
+/* BODY LEBIH LUXURY */
+body {
+  background: radial-gradient(circle at top, #e4d8c8, #e3d6c6);
+  color: #322407;
+}
+
+/* NAVBAR NEON */
+nav {
+  border-bottom: 1px solid rgba(58, 14, 14, 0.6);
+  box-shadow:
+    0 0 15px rgba(14, 10, 20, 0.6),
+    0 0 35px rgba(0, 0, 0, 0.4);
+}
+
+nav a {
+  color: #60200b;
+  text-shadow: 0 0 6px var(--neon-purple);
+}
+
+nav a:hover {
+  color: #692912;
+  text-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 25px var(--neon-purple);
+}
+
+/* SEARCH BAR NEON */
+nav .search-form {
+  border: 1px solid rgba(57, 36, 4, 0.6);
+  box-shadow: 0 0 12px rgba(70, 45, 5, 0.5);
+}
+
+/* HERO NEON */
+.hero::before {
+  background: linear-gradient(
+    rgba(255, 255, 255, 0.918),
+    rgba(0, 0, 0, 0.35)
+  );
+}
+
+.hero h2 {
+  text-shadow:
+    0 0 12px var(--neon-pink),
+    0 0 30px var(--neon-purple);
+}
+
+.hero p {
+  text-shadow: 0 0 8px var(--neon-blue);
+}
+
+/* BUTTON HERO NEON */
+.hero a {
+  background: transparent;
+  border: 2px solid var(--neon-pink);
+  color: #1b1101;
+  box-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 25px var(--neon-purple);
+}
+
+.hero a:hover {
+  background: var(--neon-pink);
+  color: #120015;
+  box-shadow:
+    0 0 20px var(--neon-pink),
+    0 0 45px var(--neon-purple);
+}
+
+/* GLASS CARD NEON EDGE */
+.glass {
+  border: 1px solid rgba(198, 116, 35, 0.7);
+  box-shadow:
+    0 0 25px rgba(200, 102, 16, 0.5),
+    inset 0 0 20px rgba(210, 121, 32, 0.2);
+}
+
+/* SECTION TITLE */
+.section-title {
+  text-align: center;
+  font-size: 32px;
+  margin-bottom: 25px; /* sebelumnya 60px */
+}
+
+
+/* GALERI HOVER NEON */
+.gallery img:hover,
+.gallery video:hover {
+  transform: scale(1.05);
+  box-shadow:
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-purple),
+    0 0 60px var(--neon-blue);
+  transition: 0.4s;
+}
+
+/* JAM BUKA NEON */
+.jam {
+  box-shadow:
+    0 0 20px rgba(165, 101, 28, 0.6),
+    inset 0 0 20px rgba(218, 141, 52, 0.2);
+}
+
+/* FOOTER NEON */
+footer {
+  background: linear-gradient(135deg, #345049, #3a4e4b);
+  box-shadow: inset 0 0 40px rgba(59, 95, 84, 0.6);
+}
+
+/* SOSMED NEON */
+.sosmed a:hover {
+  opacity: 1;
+  text-shadow:
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-purple);
+}
+
+/* WHATSAPP NEON PREMIUM */
+.wa-button {
+  box-shadow:
+    0 0 15px #25D366,
+    0 0 40px var(--neon-purple);
+}
+
+.wa-popup {
+  border: 1px solid rgba(255, 255, 255, 0.963);
+  box-shadow:
+    0 0 25px rgba(255, 255, 255, 0.982),
+    inset 0 0 15px rgba(255,255,255,0.2);
+}
+/* NAV ACTIVE NEON SIMPLE */
+nav a.active {
+  color: #fff;
+  text-shadow: 0 0 10px #ad7315, 0 0 20px #b56917;
+  border-bottom: 2px solid #cf8414;
+  padding-bottom: 4px;
+}
+
+/* === NEON HOVER CARD === */
+.card:hover{
+  transform: translateY(-10px) scale(1.05);
+  box-shadow:
+    0 0 15px #c06d2a,
+    0 0 30px #693212,
+    0 0 45px #4e4108;
+}
+
+/* === NEON SAAT DISENTUH HP === */
+.card:active{
+  box-shadow:
+    0 0 15px #c06d2a,
+    0 0 30px #693212,
+    0 0 45px #4e4108;
+}
+
+/* === CLASS KHUSUS DARI SEARCH === */
+.card.neon-search{
+  box-shadow:
+    0 0 20px #c06d2a,
+    0 0 40px #693212,
+    0 0 60px #4e4108;
+  transform: scale(1.05);
+}
+
+/* === neon plus ===*/
+@keyframes neonPulse{
+  0%{box-shadow:0 0 15px #bd6e2d;}
+  50%{box-shadow:0 0 40px #eb9b6c;}
+  100%{box-shadow:0 0 15px #4e3808;}
+}
+
+.card.neon-search{
+  animation: neonPulse 1s infinite;
+}
+/* ================= RESPONSIVE FINAL FIX ================= */
+
+/* TABLET */
+@media (max-width: 900px){
+
+  nav{
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 15px 20px;
+  }
+
+  nav h1{
+    position: static;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 5px;
+  }
+
+  nav .nav-right{
+  display: flex;
+  flex-direction: row;  
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+  .search-form{
+    width: 100%;
+    justify-content: center;
+  }
+
+  .search-form input{
+    width: 120px;
+  }
+
+  section{
+    padding: 120px 30px 60px;
+  }
+
+  .services{
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+  }
+
+  .card img{
+    height: auto;
+    object-fit: cover;
+  }
+
+}
+
+/* HP */
+@media (max-width: 600px){
+
+  nav{
+    gap: 8px;
+  }
+
+  nav a{
+    font-size: 14px;
+  }
+
+  .search-form input{
+    width: 100px;
+  }
+
+  .search-form input:focus{
+    width: 150px;
+  }
+
+  section{
+    padding: 110px 15px 50px;
+  }
+
+  .title{
+    font-size: 24px;
+  }
+
+  .filter{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .filter button{
+    padding: 8px 14px;
+    font-size: 13px;
+  }
+
+  .services{
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+
+  .card{
+    border-radius: 15px;
+  }
+
+  .card img{
+    padding: 6px;
+  }
+
+  .service-name{
+    font-size: 12px;
+  }
+
+  .book-btn{
+    font-size: 13px;
+    padding: 10px;
+  }
+
+  #bookingIcon{
+    top: 15px;
+    right: 15px;
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .wa-button{
+    width: 55px;
+    height: 55px;
+  }
+
+  .wa-popup{
+    width: 220px;
+    font-size: 13px;
+  }
+
+  .footer-row{
+    flex-direction: column;
+    gap: 20px;
+  }
+
+}
+
+/* EXTRA KECIL */
+@media (max-width: 400px){
+
+  .title{
+    font-size: 20px;
+  }
+
+  .filter button{
+    font-size: 12px;
+    padding: 6px 10px;
+  }
+
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav>
+  <h1>CutiCurl Bar</h1>
+  <div class="nav-right">
+  <a href="home.html">Home</a>
+  <a href="pelayanan.html" class="active">Layanan</a>
+  <a href="kontak.html">Contact</a>
+
+  <form class="search-form" id="searchForm">
+  <input type="text" id="searchInput" placeholder="Cari...">
+  <button type="submit">
+    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+      fill="none" stroke="#4a004a" stroke-width="2"
+      viewBox="0 0 24 24" stroke-linecap="round"
+      stroke-linejoin="round">
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="16" y1="16" x2="22" y2="22"></line>
+    </svg>
+  </button>
+</form>
+
+  </div>
+</nav>
+
+<section>
+  <h2 class="title"> Layanan Premium Kami</h2>
+
+  <div class="filter">
+    <button class="active" onclick="filterService('all',this)">Semua</button>
+    <button onclick="filterService('hair',this)">Haircut</button>
+    <button onclick="filterService('facial',this)">hair style</button>
+    <button onclick="filterService('hair polish',this)">Hair polish</button>
+    <button onclick="filterService('nail art',this)">Nail polish</button>
+  </div>
+
+  <div class="services">
+    <div class="card" data-category="hair">
+      <img src="asettt/BUTTERFLY HAIRCUT.jpg">
+      <div class="service-name">Butterfly</div>
+      <p>Rp50k</p>
+    </div>
+
+    <div class="card" data-category="hair">
+      <img src="asettt/42.jpg">
+      <div class="service-name">Short Butterfly</div>
+      <p>Rp50K</p>
+    </div>
+
+    <div class="card" data-category="hair">
+      <img src="asettt/medium layers.jpg">
+      <div class="service-name">Medium Layers</div>
+      <p>Rp50K</p>
+    </div>
+
+    <div class="card" data-category="hair">
+      <img src="asettt/wolf cut.jpg">
+      <div class="service-name">Wolf Cut</div>
+      <p>Rp50K</p>
+    </div>
+
+    <div class="card" data-category="hair">
+      <img src="asettt/oval layer pendek.jpg">
+      <div class="service-name">Short Oval Layers</div>
+      <p>Rp50k</p>
+    </div>
+
+    <div class="card" data-category="hair">
+      <img src="asettt/blunt bob.jpg">
+      <div class="service-name">Blunt Bob</div>
+      <p>Rp50K</p>
+    </div>
+
+    <div class="card" data-category="hair">
+      <img src="asettt/bondol.jpg">
+      <div class="service-name">Massy</div>
+      <p>Rp50K</p>
+    </div>
+
+    <div class="card" data-category="hair">
+      <img src="asettt/soft wolf cut.jpg">
+      <div class="service-name">Soft Wolf Cut</div>
+      <p>Rp50K</p>
+    </div>
+
+    <div class="card" data-category="hair">
+      <img src="asettt/12.jpg">
+      <div class="service-name">Bondol</div>
+      <p>Rp50K</p>
+    </div>
+
+    <div class="card" data-category="hair">
+      <img src="asettt/curlly.jpg">
+      <div class="service-name">Curlly</div>
+      <p>Rp50K</p>
+    </div>
+
+    <div class="card" data-category="facial">
+      <img src="asettt/4.jpg">
+      <div class="service-name">Hair Style 1</div>
+      <p>Rp30K</p>
+    </div>
+
+    <div class="card" data-category="facial">
+      <img src="asettt/9.jpg">
+      <div class="service-name">Hair Style 2</div>
+      <p>Rp30K</p>
+    </div>
+
+    <div class="card" data-category="facial">
+      <img src="asettt/22.jpg">
+      <div class="service-name">Hair Style 3</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="facial">
+      <img src="asettt/39.jpg">
+      <div class="service-name">Hair Style 4</div>
+      <p>Rp30K</p>
+    </div>
+
+    <div class="card" data-category="facial">
+      <img src="asettt/38.jpg">
+      <div class="service-name">Hair Style 5</div>
+      <p>Rp30K</p>
+    </div>
+
+    <div class="card" data-category="facial">
+      <img src="asettt/87.jpg">
+      <div class="service-name">Hair Style 6</div>
+      <p>Rp30K</p>
+    </div>
+
+    <div class="card" data-category="facial">
+      <img src="asettt/44.jpg">
+      <div class="service-name">Hair Style 7</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="facial">
+      <img src="asettt/hair styl.jpg">
+      <div class="service-name">Hair Style 8</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="facial">
+      <img src="asettt/download.png">
+      <div class="service-name">Hair Style 9</div>
+      <p>Rp40K</p>
+    </div>
+    
+    <div class="card" data-category="hair polish">
+      <img src="asettt/5.jpg">
+      <div class="service-name">Blue Cokies</div>
+      <p>Rp70K</p>
+    </div>
+
+    <div class="card" data-category="hair polish">
+      <img src="asettt/7.jpg">
+      <div class="service-name">Brown</div>
+      <p>Rp70K</p>
+    </div>
+
+    <div class="card" data-category="hair polish">
+      <img src="asettt/10.jpg">
+      <div class="service-name">Gold Brown</div>
+      <p>Rp70K</p>
+    </div>
+
+    <div class="card" data-category="hair polish">
+      <img src="asettt/17.jpg">
+      <div class="service-name">Ivory
+      </div>
+      <p>Rp70K</p>
+    </div>
+    
+    <div class="card" data-category="hair polish">
+      <img src="asettt/18.jpg">
+      <div class="service-name">Soft grey</div>
+      <p>Rp70K</p>
+    </div>
+    
+    <div class="card" data-category="hair polish">
+      <img src="asettt/25.jpg">
+      <div class="service-name">Blonde</div>
+      <p>Rp70K</p>
+    </div>
+
+     <div class="card" data-category="hair polish">
+      <img src="asettt/49.jpg">
+      <div class="service-name">Grey Blue</div>
+      <p>Rp70K</p>
+    </div>
+
+    <div class="card" data-category="hair polish">
+      <img src="asettt/ungu blue.jpg">
+      <div class="service-name">Purple Grey</div>
+      <p>Rp70K</p>
+    </div>
+
+    <div class="card" data-category="hair polish">
+      <img src="asettt/polish biru abu.jpg">
+      <div class="service-name">Relaxa</div>
+      <p>Rp70K</p>
+    </div>
+
+    <div class="card" data-category="nail art">
+      <img src="asettt/46.jpg">
+      <div class="service-name">Metalic Pich</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="nail art">
+      <img src="asettt/20.jpg">
+      <div class="service-name">Gradasi Brown</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="nail art">
+      <img src="asettt/2.jpg">
+      <div class="service-name">Pink pich</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="nail art">
+      <img src="asettt/37.png">
+      <div class="service-name">Atlantic Pink Blue </div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="nail art">
+      <img src="asettt/3.jpg">
+      <div class="service-name">Azul natural</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="nail art">
+      <img src="asettt/6.jpg">
+      <div class="service-name">Brown metalic</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="nail art">
+      <img src="asettt/13.jpg">
+      <div class="service-name">Natural nude</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="nail art">
+      <img src="asettt/14.jpg">
+      <div class="service-name">Natural pink</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="nail art">
+      <img src="asettt/16.jpg">
+      <div class="service-name">Cafe</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="nail art">
+      <img src="asettt/24.png">
+      <div class="service-name">Red</div>
+      <p>Rp40K</p>
+    </div>
+
+    <div class="card" data-category="nail art">
+      <img src="asettt/33.jpg">
+      <div class="service-name">Nude skin</div>
+      <p>Rp40K</p>
+    </div>
+  </div>
+  </div>
+</section>
+
+<!-- ICON BOOKING POJOK KANAN ATAS -->
+<div id="bookingIcon">
+  🛒 <span id="count">0</span>
+</div>
+<!-- MODAL KERANJANG -->
+<div id="cartModal" class="cart-modal">
+  <div class="cart-box">
+    <h3 class="cart-title">🛒 Booking Kamu</h3>
+
+    <div id="cartItems" class="cart-items"></div>
+
+    <button class="cart-close" onclick="closeCart()">Tutup</button>
+  </div>
+</div>
+
+<!-- FOOTER (SAMA DENGAN HOME) -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-row">
+      <div class="footer-col">
+        <h3>Alamat</h3>
+        <p>Jl. Tambakboyo Kidul, Desa Ngadirejo, Kec.Reban </p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Informasi</h3>
+        <p>Tentang Kami</p>
+        <p>Layanan Kami</p>
+        <p>Harga</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Bantuan</h3>
+        <p>Hubungi Kami</p>
+        <p>Pengetahuan</p>
+        <p>Testimoni</p>
+      </div>
+
+      <div class="footer-col">
+        <h3>Sosial Media</h3>
+        <div class="sosmed">
+          <a class="instagram" href="https://instagram.com" target="_blank">Instagram</a>
+          <a class="twitter" href="https://twitter.com" target="_blank">Twitter</a>
+          <a class="facebook" href="https://facebook.com" target="_blank">Facebook</a>
+          <a class="telegram" href="https://t.me" target="_blank">Telegram</a>
+        </div>
+      </div>
+    </div>
+
+    <h3>Email</h3>
+    <p>arina.manasikana1940@smk.belajar.id</p>
+
+    <h3>Website</h3>
+    <p>www.CutiCurlBar.com</p>
+
+    <p class="footer-copy">© 2026 CutiCurl Bar</p>
+  </div>
+</footer>
+
+<!-- WHATSAPP WIDGET -->
+<div class="wa-widget">
+  <div class="wa-popup" id="waPopup">
+    <p><strong>Halo</strong><br>
+    Perkenalkan CutiCurl Bar<br>
+    Ada yang bisa kami bantu?</p>
+    <a href="https://wa.me/085967180909?text=Halo%20Glow%20Beauty,%20saya%20ingin%20konsultasi"
+       target="_blank"
+       class="wa-chat">
+       Chat via WhatsApp
+    </a>
+  </div>
+
+  <button class="wa-button" id="waButton">
+    <img src="https://img.icons8.com/ios-filled/50/ffffff/whatsapp.png">
+  </button>
+</div>
+
+
+</body>
+</html>
+<script>
+
+/* ===== FILTER ===== */
+function filterService(category, btn){
+  const cards = document.querySelectorAll('.card');
+  const buttons = document.querySelectorAll('.filter button');
+
+  buttons.forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  cards.forEach(card=>{
+    const match = category === 'all' || card.dataset.category === category;
+
+    if(match){
+      card.style.display = 'block';
+      requestAnimationFrame(()=>card.classList.remove('fade-out'));
+    }else{
+      card.classList.add('fade-out');
+      setTimeout(()=>card.style.display='none',400);
+    }
+  });
+}
+
+
+/* ===== BOOKING LANGSUNG WHATSAPP ===== */
+document.querySelectorAll('.card').forEach(card => {
+  const title = card.querySelector('.service-name').innerText;
+  const price = card.querySelector('p').innerText;
+
+  const btn = document.createElement('button');
+  btn.className = 'book-btn';
+  btn.innerText = 'Booking via WhatsApp';
+
+  btn.onclick = () => {
+
+    const nomor = "6285967180909";
+
+    const pesan = `hallo Arina hair styling 👋
+Saya ingin booking:
+
+💇‍♀️ ${title}
+💰 ${price}
+
+Mohon info jadwal ya 😊`;
+
+    const url = `https://wa.me/${nomor}?text=${encodeURIComponent(pesan)}`;
+
+    window.open(url, "_blank");
+  };
+
+  card.appendChild(btn);
+});
+
+
+/* ===== WHATSAPP POPUP ===== */
+const waBtn = document.getElementById("waButton");
+const waPopup = document.getElementById("waPopup");
+
+waBtn.addEventListener("click", () => {
+  waPopup.style.display =
+    waPopup.style.display === "block" ? "none" : "block";
+});
+
+
+/* ===== SEARCH ===== */
+const searchForm = document.getElementById("searchForm");
+const searchInput = document.getElementById("searchInput");
+
+searchForm.addEventListener("submit", function(e){
+  e.preventDefault();
+
+  const keyword = searchInput.value.toLowerCase().trim();
+  const cards = document.querySelectorAll(".card");
+
+  let found = false;
+
+  cards.forEach(card => {
+    const text = card.innerText.toLowerCase();
+
+    if(text.includes(keyword)){
+      card.scrollIntoView({
+        behavior:"smooth",
+        block:"center"
+      });
+
+      card.classList.add("neon-search");
+
+      setTimeout(()=>{
+        card.classList.remove("neon-search");
+      },2000);
+
+      found = true;
+    }
+  });
+
+  if(!found){
+    alert("❌ Kata tidak ditemukan");
+  }
+});
+
+
+/* ===== SMOOTH SCROLL ===== */
+let currentScroll = window.pageYOffset;
+let isScrolling = false;
+
+window.addEventListener("wheel", (e) => {
+  e.preventDefault();
+
+  currentScroll += e.deltaY * 0.8;
+  currentScroll = Math.max(
+    0,
+    Math.min(currentScroll, document.body.scrollHeight - window.innerHeight)
+  );
+
+  if (!isScrolling) {
+    isScrolling = true;
+    smoothStep();
+  }
+}, { passive: false });
+
+  function smoothStep() {
+  const diff = currentScroll - window.pageYOffset;
+  window.scrollBy(0, diff * 0.1);
+
+  if (Math.abs(diff) > 0.5) {
+    requestAnimationFrame(smoothStep);
+  } else {
+    isScrolling = false;
+  }
+}
+</script>
+
+</body>
+</html>
